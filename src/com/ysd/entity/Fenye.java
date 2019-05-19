@@ -22,7 +22,10 @@ public class Fenye<T> {
 	private String rName;
 	
 	
-	
+	// 姓名关键字、电话、咨询师、是否缴费、是否有效、是否回访、QQ、创建时间/上门时间/首次回访时间/缴费时间/进班时间 
+		private String loginName;
+		private String nContent;
+		
 	
 	
 	// 姓名关键字、电话、咨询师、是否缴费、是否有效、是否回访、QQ、创建时间/上门时间/首次回访时间/缴费时间/进班时间
@@ -52,6 +55,18 @@ public class Fenye<T> {
 	
 	
 	
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+	public String getnContent() {
+		return nContent;
+	}
+	public void setnContent(String nContent) {
+		this.nContent = nContent;
+	}
 	public String getsName() {
 		return sName;
 	}

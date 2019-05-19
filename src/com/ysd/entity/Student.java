@@ -27,22 +27,34 @@ private String sRecord;
 private Integer sIsReturnVist;
 private String sFirstVisitTime;
 private Integer sIsHome;
-private String sHomeTime;    //************************需要改成String
+private String sHomeTime;    //************************闇�瑕佹敼鎴怱tring
 private String sLostValid;
 private String sIsPay;
 private String sPayTime;
-private String   sMoney;    //*************需要改成String
+private String   sMoney;    //*************闇�瑕佹敼鎴怱tring
 private Integer sIsReturnMoney;
 private String sReturnMoneyReason;
 private Integer sIsInClass;
-private Integer sInClassTime;//改为int类型
+private Integer sInClassTime;//鏀逛负int绫诲瀷
 private String sInClassContent;
 private Integer sIsBaoBei;
 private Integer sZiXunId;
 private Integer sCreateUserId;
 private Double sPreMoney;
 private String sPreMoneyTime;
-//把咨询师维护到学生中
+//鎶婂挩璇㈠笀缁存姢鍒板鐢熶腑
+
+private User user;
+
+
+
+
+public User getUser() {
+	return user;
+}
+public void setUser(User user) {
+	this.user = user;
+}
 private Askers askers;
 public Integer getsId() {
 	return sId;

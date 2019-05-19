@@ -4,15 +4,195 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysd.dao.StudentMapper">
 <select id="selectStuCount" parameterType="fenye" resultType="int">
+select count(*) from student s
 
-select count(*) from student
+</select>
+
+<select id="lookStu" parameterType="int" resultType="student">
+select * from student
 
 </select>
 
 
-<select id="selectStu" parameterType="fenye" resultType="student">
+<resultMap id="selectStu" type="Student">
 
-select * from student limit #{page},#{pageSize}
+		<result property="user.uId" column="uId" />
+		<result property="user.loginName" column="loginName" />
 
-</select>
+		<result property="sId" column="sId" />
+
+		<result property="sName" column="sName" />
+
+		<result property="sAge" column="sAge" />
+
+		<result property="sSex" column="sSex" />
+
+		<result property="sPhone" column="sPhone" />
+
+		<result property="sStuState" column="sStuState" />
+
+		<result property="sState" column="sState" />
+
+		<result property="sMsgSource" column="sMsgSource" />
+
+		<result property="sSourceUrl" column="sSourceUrl" />
+
+		<result property="sSourceKeyWord" column="sSourceKeyWord" />
+
+		<result property="sAddress" column="sAddress" />
+
+		<result property="sNetPusherId" column="sNetPusherId" />
+
+		<result property="sStuConcern" column="sStuConcern" />
+
+		<result property="sQQ" column="sQQ" />
+
+		<result property="sWeiXin" column="sWeiXin" />
+
+		<result property="sContent" column="sContent" />
+
+		<result property="sCreateTime" column="sCreateTime" />
+
+		<result property="sLearnForward" column="sLearnForward" />
+
+		<result property="sIsValid" column="sIsValid" />
+
+		<result property="sRecord" column="sRecord" />
+
+		<result property="sIsReturnVist" column="sIsReturnVist" />
+
+		<result property="sFirstVisitTime" column="sFirstVisitTime" />
+
+		<result property="sIsHome" column="sIsHome" />
+
+		<result property="sHomeTime" column="sHomeTime" />
+
+		<result property="sLostValid" column="sLostValid" />
+
+		<result property="sIsPay" column="sIsPay" />
+
+		<result property="sPayTime" column="sPayTime" />
+
+		<result property="sMoney" column="sMoney" />
+
+		<result property="sIsReturnMoney" column="sIsReturnMoney" />
+
+		<result property="sReturnMoneyReason" column="sReturnMoneyReason" />
+
+		<result property="sIsInClass" column="sIsInClass" />
+
+		<result property="sInClassTime" column="sInClassTime" />
+
+		<result property="sInClassContent" column="sInClassContent" />
+
+		<result property="sIsBaoBei" column="sIsBaoBei" />
+
+		<result property="sZiXunId" column="sZiXunId" />
+
+		<result property="sCreateUserId" column="sCreateUserId" />
+
+		<result property="sPreMoney" column="sPreMoney" />
+
+		<result property="sPreMoneyTime" column="sPreMoneyTime" />
+
+	</resultMap>
+
+
+
+
+<select parameterType="fenye" id="selectStu" resultMap="selectStu">
+
+SELECT u.loginName,s.sId,s.sName,s.sAge,s.sSex,s.sPhone,s.sStuState,s.sState,s.sMsgSource,
+	s.sSourceUrl,s.sSourceKeyWord,s.sAddress,s.sNetPusherId,s.sStuConcern,s.sQQ,s.sWeiXin,s.sContent,s.sCreateTime,s.sLearnForward,s.sIsValid,s.sRecord,s.sIsReturnVist,s.sFirstVisitTime,
+	s.sIsHome,s.sHomeTime,s.sLostValid,s.sIsPay,s.sPayTime,s.sMoney,s.sIsReturnMoney,s.sReturnMoneyReason,s.sIsInClass,s.sInClassTime,s.sInClassContent,s.sIsBaoBei,s.sZiXunId,
+	s.sPreMoney,s.sPreMoneyTime FROM student s,user u  
+		 <where> 
+			 <if test="sName != null and sName!=''">and sName like "%"#{sName}"%" </if>
+
+			<if test="sPhone !=null and sPhone!=''">and sPhone = #{sPhone} </if>
+			
+			<if test="loginName !=null and loginName!=''">and u.loginName = #{loginName} </if> 
+			<!-- <if test="sZiXunId!=null and sZiXunId!=''">and sZiXunId = #{sZiXunId} </if> -->
+			
+			<!-- <if test="sIsPay!=null and sIsPay!=''">and sIsPay =#{sIsPay} </if>
+
+			<if test="sIsValid!=null and sIsValid!=''">and sIsValid = #{sIsValid} </if>
+
+			<if test="sIsReturnVist!=null and sIsReturnVist!=''">and sIsReturnVist =#{sIsReturnVist} </if>
+
+			<if test="sQQ!=null and sQQ!=''">and sQQ = #{sQQ} </if>
+
+			<if test="sCreateTime!=null and sCreateTime!=''">and sCreateTime =#{sCreateTime} </if>
+			 -->
+			 
+			 and s.sZiXunId = u.uId 
+		</where> 
+		limit #{page},#{pageSize}
+	</select>
+
+
+
+
+<insert id="InsertStu"  parameterType="student">
+  INSERT INTO student(sName,sAge,sSex,sPhone,sStuState,sState,sMsgSource,sSourceUrl,sSourceKeyWord,sAddress,sStuConcern,sContent,sQQ,sWeiXin,sIsBaoBei,sZiXunId,sCreateUserId,sNetPusherId)
+  values(#{sName},#{sAge},#{sSex},#{sPhone},#{sStuState},#{sState},#{sMsgSource},#{sSourceUrl},#{sSourceKeyWord},#{sAddress},#{sStuConcern},#{sContent},#{sQQ},#{sWeiXin},#{sIsBaoBei},#{sZiXunId},#{sCreateUserId},#{sNetPusherId})
+</insert>
+
+
+
+<update id="updateStu" parameterType="student">
+UPDATE student 
+<set>
+
+<if test="sName!=null and sName!=''">
+	sName=#{sName},
+</if>
+<if test="sSex!=null and sSex!=''">
+	sSex=#{sSex},
+</if>
+<if test="sAge!=null and sAge!=''">
+	sAge=#{sAge},
+</if>
+<if test="sPhone!=null and sPhone!=''">
+	sPhone=#{sPhone},
+</if>
+<if test="sState!=null and sState!=''">
+	sState=#{sState},
+</if>
+<if test="sMsgSource!=null and sMsgSource!=''">
+	sMsgSource=#{sMsgSource},
+</if>
+<if test="sSourceUrl!=null and sSourceUrl!=''">
+	sSourceUrl=#{sSourceUrl},
+</if>
+<if test="sSourceKeyWord!=null and sSourceKeyWord!=''">
+	sSourceKeyWord=#{sSourceKeyWord},
+</if>
+<if test="sNetPusherId!=null and sNetPusherId!=''">
+	sNetPusherId=#{sNetPusherId},
+</if>
+<if test="sStuConcern!=null and sStuConcern!=''">
+	sStuConcern=#{sStuConcern},
+</if>
+<if test="sContent!=null and sContent!=''">
+	sContent=#{sContent},
+</if>
+<if test="sQQ!=null and sQQ!=''">
+	sQQ=#{sQQ},
+</if>
+<if test="sWeiXin!=null and sWeiXin!=''">
+	sWeiXin=#{sWeiXin},
+</if>
+<if test="sIsBaoBei!=null and sIsBaoBei!=''">
+	sIsBaoBei=#{sIsBaoBei},
+</if>
+<if test="sZiXunId!=null and sZiXunId!=''">
+	sZiXunId=#{sZiXunId},
+</if>
+
+</set>
+<where>
+	sId=#{sId}
+</where>
+</update>
 </mapper>
