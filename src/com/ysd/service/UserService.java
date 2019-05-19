@@ -41,4 +41,7 @@ public interface UserService {
 	Integer insertUserRoles(Userroles userroles);
 	//É¾³ıÓÃ»§½ÇÉ«
 	Integer deleteUserRoles(Integer roleId);
+	
+	
+	
 }

@@ -49,6 +49,13 @@ public interface UserMapper {
 	Integer jiesuoUser(User user);
 	
 	
+	
+	//根据roleId查userId
+	List<Userroles> selectUserRolesByRolesId(Integer id);
+	
+	
+	
+	
 	/**
 	 * 进行用户角色设置
 	 * @return

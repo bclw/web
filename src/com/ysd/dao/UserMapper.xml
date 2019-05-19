@@ -135,5 +135,13 @@ update user set loginName='admin',password='ysd123' where uId = #{uId}
 		delete from userroles where roleId=#{roleId}
 	</delete>
 	
+	
+	
+	
+	<!-- 根据rolesId查userid -->
+	<select id="selectUserRolesByRolesId" parameterType="int" resultType="Userroles">
+	SELECT id,userId,roleId FROM `userroles` where roleId =#{roleId}
+	</select>
+	
 
 </mapper>
