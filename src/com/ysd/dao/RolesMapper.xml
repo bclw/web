@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysd.dao.RolesMapper">
+
+<!-- 用户总条数 -->
+<select id="selectRolesCount"  parameterType="fenye" resultType="int">
+select count(rId) from roles
+<where>
+		<if test="rName !=null and rName !=''">
+			and rName like "%"#{rName}"%"
+		</if>
+	</where>
+</select>
+
+<select id="selectRoles" parameterType="fenye" resultType="roles">
+	select rId,rName,rExt from roles
+	<where>
+		<if test="rName !=null and rName !=''">
+			and rName like "%"#{rName}"%"
+		</if>
+	</where>
+	limit #{page},#{pageSize}
+</select>
+
+
+	 <delete id="deleteRoles" parameterType="int">
+		delete from roles where rId=#{rId}
+	</delete>
+	
+	<insert id="insertRoles" parameterType="roles">
+	    insert into roles(rName) values(#{rName})
+	</insert>
+	
+	<update id="updateRoles" parameterType="roles">
+		update roles 
+		<set>
+			<if test="rName !=null and rName !=''">
+			  rName =#{rName}
+			</if>
+		</set>
+		<where>
+			rId=#{rId}
+		</where>
+	</update>
+	
+	
+	
+	<!-- 查询所有模块 -->
+	<select id="selectModules" resultType="modules">
+		SELECT * from modules
+	</select>
+	<!-- 显示所有角色模块 -->
+	<select id="selectRoleModules" resultType="modules" parameterType="int">
+		SELECT mId,mName FROM modules WHERE mId IN (
+		SELECT moduleId FROM rolemodules WHERE roleId=#{rId} )
+	</select>
+	
+	<insert id="insertRoleModules" parameterType="rolemodules">
+		insert into rolemodules(roleId,moduleId) values(#{roleId},#{moduleId})
+	</insert>
+	<delete id="deleteRolesModules" parameterType="int">
+		delete from rolemodules where moduleId=#{moduleId}
+	</delete>
+
+
+</mapper>

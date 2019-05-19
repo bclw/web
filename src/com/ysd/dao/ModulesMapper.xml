@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ysd.dao.ModulesMapper">
+<select id="getModule" resultType="Modules" parameterType="Integer">
+SELECT * FROM modules WHERE mId IN (
+SELECT moduleId FROM rolemodules WHERE roleId IN (
+SELECT roleId FROM userroles WHERE userId=#{id})) AND mParentId=0
+<!-- 根据用户Id 从用户角色表中获取  用户角色id ，
+根据用户角色Id 从角色模块表中 查询出 角色有的模块Id ，
+最后根据模块Id 从模块表中查询出 所有模块-->
+
+</select>
+
+<select id="getModeuleChlidren" resultType="com.ysd.entity.Modules" parameterType="Integer">
+SELECT * FROM modules WHERE mParentId=#{id}
+</select>
+
+<!-- 查询所有模块 -->
+<select id="selectModules" resultType="modules">
+	SELECT * FROM modules WHERE mParentId=0
+</select>
+<!-- 添加 -->
+<insert id="insertModule" parameterType="modules">
+	insert into modules(mName,mPath,mParentId) values(#{mName},#{mPath},#{mParentId})
+</insert>
+<!-- 修改 -->
+<update id="updateModule" parameterType="modules">
+	update modules set mName=#{mName} where mId=#{mId}
+</update>
+<!-- 删除 -->
+<delete id="deleteModule" parameterType="int">
+	delete from modules where mId=#{mId}
+</delete>
+
+	
+</mapper>

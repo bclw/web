@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysd.dao.UserMapper">
+<!-- 根据名称查询用户是否存在(登陆) -->
+<select id="selectUserByname" parameterType="User" resultType="User">
+		SELECT uId,loginName,`password`,padWrongTime,lockTime,lastLoginTime,isLockOut
+		FROM `user`
+		<where>
+			loginName=#{loginName}
+		</where>
+	</select>
+	
+<!-- 更新用户登陆信息 -->
+<update id="updateUserLoginInfo" parameterType="User">
+		update `user`
+		<set>
+			<if test="padWrongTime !=null and padWrongTime !='' ">
+				padWrongTime=#{padWrongTime},
+			</if>
+			<if test="isLockOut !=null and isLockOut !=''">
+				isLockOut=#{isLockOut},
+			</if>
+			<if test="lastLoginTime !=null and lastLoginTime !=''">
+				lastLoginTime=#{lastLoginTime},
+			</if>
+			<if test="lockTime !=null and lockTime !=''">
+				lockTime=#{lockTime},
+			</if>
+		</set>
+		<where>
+			uId=#{uId}
+		</where>
+</update>
+
+<!-- 用户总条数 -->
+<select id="selectUserCount"  parameterType="fenye" resultType="int">
+select count(uId) from User
+ <where>
+		<if test="named !=null and named !=''">
+			and loginName like "%"#{named}"%"
+		</if>
+		<if test="startTime !=null and startTime !='' ">
+			and createTime &gt;=#{startTime}
+		</if>
+		<if test="endTime !=null and endTime !='' ">
+			and createTime &lt;=#{endTime}
+		</if>
+		<if test="lockd !=null and lockd !=''">
+			and isLockOut =#{lockd}
+		</if>
+	</where> 
+</select>
+
+<!--  重置密码-->
+<update id="resetPsd" parameterType="user">
+update user set loginName='admin',password='ysd123' where uId = #{uId}
+</update>
+
+<!--  锁定用户 -->
+<update id="suodingUser" parameterType="user">
+	update user set isLockout=0  where uId = #{uId} and isLockout=1
+</update>
+<!--  解锁用户 -->
+<update id="jiesuoUser" parameterType="user">
+	update user set isLockout=1  where uId = #{uId} and isLockout=0
+</update>
+
+
+
+<select id="selectUser" parameterType="fenye" resultType="user">
+	select uId,loginName,password,eMail,mTel,isLockOut,createTime,lastLoginTime from User
+	<where>
+		<if test="named !=null and named !=''">
+			and loginName like "%"#{named}"%"
+		</if>
+		<if test="startTime !=null and startTime !=''">
+			and createTime &gt;=#{startTime}
+		</if>
+		<if test="endTime !=null and endTime !='' ">
+			and createTime &lt;=#{endTime}
+		</if>
+		<if test="lockd !=null and lockd !=''">
+			and isLockOut =#{lockd}
+		</if>
+	</where> 
+	limit #{page},#{pageSize}
+</select>
+
+
+	 <delete id="deleteUser" parameterType="int">
+		delete from User where uId=#{uId}
+	</delete>
+	
+	<insert id="insertUser" parameterType="user">
+	    insert into User(loginName,password,eMail,mTel) values(#{loginName},#{password},#{eMail},#{mTel})
+	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		update User 
+		<set>
+			<if test="loginName !=null and loginName !='' ">
+				loginName=#{loginName},
+			</if>
+			<if test="eMail !=null and eMail !='' ">
+				eMail=#{eMail},
+			</if>
+			<if test=" mTel !=null and mTel  !='' ">
+				mTel=#{mTel},
+			</if>
+		</set>
+		<where>
+			uId=#{uId}
+		</where>
+	</update>
+	
+	
+	
+	<!-- 查询所有角色名 -->
+	<select id="selectRoles" resultType="roles">
+		SELECT rId,rName from roles
+	</select>
+	<!-- 显示所有用户角色 -->
+	<select id="selectUserRoles" resultType="roles" parameterType="int">
+		SELECT rId,rName FROM roles WHERE rId IN (
+		SELECT roleId FROM userroles WHERE userId=#{id} )
+	</select>
+	
+	<insert id="insertUserRoles" parameterType="userroles">
+		insert into userroles(userId,roleId) values(#{userId},#{roleId})
+	</insert>
+	
+	<delete id="deleteUserRoles" parameterType="int">
+		delete from userroles where roleId=#{roleId}
+	</delete>
+	
+
+</mapper>
