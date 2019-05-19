@@ -97,7 +97,6 @@
 	}
 
 	function updateInfo() {
-		alert(1)
 		var nodes = $('#treemenu').tree('getSelected');
 	     var flag=$("#updateFrm").form("validate");
 	     var mName=$("#mName1").val();

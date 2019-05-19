@@ -51,9 +51,19 @@ public class LoginController {
 					session.setAttribute("name", name);
 					
 					Integer id = user.get(0).getuId();
+					User u = userService.select(id);
+					
+					String em=u.geteMail();
+					String tel=u.getmTel();
+					String ext=u.getuExt();
+					System.out.println(em);
 					users.setuId(id);
 					users.setLastLoginTime(format);
 					users.setPadWrongTime(1);
+					session.setAttribute("id",id);
+					session.setAttribute("em",em);
+					session.setAttribute("tel",tel);
+					session.setAttribute("ext",ext);
 					userService.updateUserLoginInfo(users);
 					i = 1;/* 登陆成功 */
 				} else {
@@ -195,6 +205,100 @@ public class LoginController {
 			System.out.println(i);
 			return i;
 		}
+		
+		
+		
+		// 修改信息
+		@RequestMapping(value = "/updateMessage", method = RequestMethod.POST)
+		@ResponseBody
+		public Integer updateMessage(User user,HttpSession session) {
+			Integer i = userService.updateMessage(user);
+			if(i>0){
+				Integer id = user.getuId();
+				User u = userService.select(id);
+				String name=u.getLoginName();
+				String em=u.geteMail();
+				String tel=u.getmTel();
+				String ext=u.getuExt();
+				System.out.println(em);
+				u.setuId(id);
+				session.setAttribute("id",id);
+				session.setAttribute("name", name);
+				session.setAttribute("em",em);
+				session.setAttribute("tel",tel);
+				session.setAttribute("ext",ext);
+			}
+			return i;
+		}
+		@RequestMapping(value = "/updateQiandao", method = RequestMethod.POST)
+		@ResponseBody
+		public Integer updateQiandao(User user,HttpSession session) {
+			  session.getAttribute("name");
+			     Integer id= (Integer)session.getAttribute("id");
+				//user.setLoginName();
+			     System.out.println(id);
+				Integer i = userService.updateQiandao(user);
+				if(i>0){
+					User u = userService.select(id);
+					String em=u.geteMail();
+					String tel=u.getmTel();
+					String loginName=u.getLoginName();
+					String ext=u.getuExt();
+					u.setuId(id);
+					u.setLoginName(loginName);
+					session.setAttribute("id",id);
+					session.setAttribute("em",em);
+					session.setAttribute("tel",tel);
+					session.setAttribute("ext",ext);
+					session.setAttribute("loginName",loginName);
+					return i;
+				}else{
+				return i;
+				}
+		}
+		@RequestMapping(value = "/updateQiantui", method = RequestMethod.POST)
+		@ResponseBody	
+		public Integer updateQiantui(User user,HttpSession session) {
+		     session.getAttribute("name");
+		     Integer id= (Integer)session.getAttribute("id");
+			//user.setLoginName();
+			Integer i = userService.updateQiantui(user);
+			if(i>0){
+				User u = userService.select(id);
+				String em=u.geteMail();
+				String tel=u.getmTel();
+				String loginName=u.getLoginName();
+				String ext=u.getuExt();
+				u.setuId(id);
+				u.setLoginName(loginName);
+				session.setAttribute("id",id);
+				session.setAttribute("em",em);
+				session.setAttribute("tel",tel);
+				session.setAttribute("ext",ext);
+				session.setAttribute("loginName",loginName);
+				return i;
+			}else{
+				return -1;
+			}
+			
+			
+		}
+
+	    @RequestMapping(value="/updateUserPassword",method=RequestMethod.POST)
+	    @ResponseBody
+	    public Integer UpdateUserPassword( User u, Integer id, String oldPsd,String newPsd){
+	    	User user=userService.select(id);
+	    	
+	    	if(oldPsd.equals(user.getPassword())){
+	    		u.setuId(id);
+	        	u.setPassword(newPsd);
+	        	Integer Update=userService.UpdateUserPassword(u);
+	        	return Update;
+	    	}else{
+	    		return -1;
+	    	}
+	    	
+	    }
 
 
 }

@@ -263,8 +263,6 @@ function saveUpdate() {
 		var userRow=$("#dg").datagrid("getSelected");
 		//获取角色id
 		var roleRow=$("#allrole").datagrid("getSelected");
-		alert(roleRow.roleId)
-		alert(userRow.uId)
 		if(roleRow){
 			$.post("inserUserRoles",{
 				userId:userRow.uId,
@@ -288,7 +286,6 @@ function saveUpdate() {
 		var userRow=$("#dg").datagrid("getSelected");
 		//获取角色id
 		var roleRow=$("#myrole").datagrid('getSelected');
-		console.log(roleRow);
 		if(roleRow){
 			$.post("deleteUserRoles",{
 				roleId:roleRow.rId,

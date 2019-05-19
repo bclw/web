@@ -1,6 +1,5 @@
 package com.ysd.entity;
 
-import java.util.Date;
 
 public class User {
 private Integer uId;
@@ -13,6 +12,18 @@ private Integer padWrongTime;
 private String lockTime;
 private String eMail;
 private String mTel;
+
+private String uExt;
+
+
+
+
+public String getuExt() {
+	return uExt;
+}
+public void setuExt(String uExt) {
+	this.uExt = uExt;
+}
 public Integer getuId() {
 	return uId;
 }

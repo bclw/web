@@ -17,16 +17,15 @@ public class NefollowsController {
 	@Autowired
 	private NefollowsStudentServiceImpl nefollowsStudentServiceImpl;
 
-//跟踪
+//璺熻釜
 	@RequestMapping("Nefollows")
 	@ResponseBody
 	public int insertNefollows(Nefollows nefollows) {
 	
-		System.out.println("Nefollows" + nefollows);
 		return nefollowsStudentServiceImpl.insertNefollows(nefollows);
 	}
 
-//查询所有
+//鏌ヨ鎵�鏈�
 	@RequestMapping("NefollowsAll")
 	@ResponseBody
 	public Fenye<Nefollows> NefollowsAll(Integer page, Integer rows,
@@ -34,23 +33,19 @@ public class NefollowsController {
 			String nFollowTime, String nNextFollowTime, String nFollowType, String nFollowState) {
 		fenye.setPage((page - 1) * rows);
 		fenye.setPageSize(rows);
-		//用户id
+		//鐢ㄦ埛id
 		fenye.setuId(1);		
 		fenye.setnStudentName(nStudentName);
 		fenye.setnFollowTime(nFollowTime);
 		fenye.setnNextFollowTime(nNextFollowTime);
 		fenye.setnFollowType(nFollowType);
 		fenye.setnFollowState(nFollowState);
-		System.out.println();
 		fenye=nefollowsStudentServiceImpl.selectAllNefollows(fenye);
-		System.out.println(fenye + "--------------------------------------");
 		return fenye;
 	}
 	@RequestMapping("updateNefollows")
 	@ResponseBody
 	public int updateNefollows(Nefollows nefollows) {
-		System.out.println("alksdfjaksdjflkajdghklajghlkusd");
-		System.out.println("Nefollows:___"+nefollows);
 		return nefollowsStudentServiceImpl.updateStudent(nefollows);
 		
 	}

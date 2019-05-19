@@ -12,6 +12,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
+	
+	<select id="select" parameterType="User" resultType="User">
+		SELECT loginName,`password`,eMail,mTel,uExt
+		FROM `user`
+		<where>
+			uId=#{id}
+		</where>
+	</select>
+	
 <!-- 更新用户登陆信息 -->
 <update id="updateUserLoginInfo" parameterType="User">
 		update `user`
@@ -142,6 +151,28 @@ update user set loginName='admin',password='ysd123' where uId = #{uId}
 	<select id="selectUserRolesByRolesId" parameterType="int" resultType="Userroles">
 	SELECT id,userId,roleId FROM `userroles` where roleId =#{roleId}
 	</select>
+	
+	
+	
+		
+	<update id="updateMessage" parameterType="User">
+	update user set loginName=#{loginName},eMail=#{eMail},mTel=#{mTel},uExt=#{uExt} 
+	where uId=#{uId} 
+	</update>
+    <update id="updateQiandao" parameterType="User">
+	update user set uExt='已签到' 
+	where uId=#{uId} and uExt='未签到'
+	</update>
+	<update id="updateQiantui" parameterType="User">
+	update user set uExt='已签退' 
+	where uId=#{uId} and uExt='已签到'
+	</update>
+	 <!-- 修改个人信息 -->
+ <update id="UpdateUserPassword" parameterType="user" >
+    UPDATE user 
+    SET password =#{password} 
+    WHERE uid=#{uId} 
+ </update>
 	
 
 </mapper>

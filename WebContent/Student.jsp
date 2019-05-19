@@ -494,7 +494,7 @@ $(function() {
 				<option value=" "></option>
 				<option value="0">未缴费</option>
 				<option value="1">已缴费</option>
-			<select> 
+			<select> <br>
           <label for="name">是否有效:</label> 
           <select
 				id="sIsValid" class="easyui-combobox" name="sIsValid"
@@ -515,7 +515,7 @@ $(function() {
           <input class="easyui-validatebox" type="text" id="sQQ" data-options="required:true" />
           <label for="name">创建时间:</label>   
           <input class="easyui-datetimebox" id="sCreateTime" name="sCreateTime"     
-          data-options="required:true,showSeconds:false" value="3/4/2010 2:3" style="width:150px">   
+          data-options="required:true,showSeconds:false" value="3/4/2010 2:3" style="width:150px">   <br>
           <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="init()">搜索</a>  
 		  <a href="javascript:void(0)" class="easyui-linkbutton" onclick="insert()" data-options="iconCls:'icon-add'">新增</a>
  <a id="btn" href="javascript:shezhi()" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">设置</a>

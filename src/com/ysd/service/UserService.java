@@ -44,4 +44,19 @@ public interface UserService {
 	
 	
 	
+	
+	
+	//我的信息
+			User select(Integer id);
+			//修改我的信息
+					Integer updateMessage(User user);
+					//签到
+					Integer updateQiandao(User user);
+					//签退
+					Integer updateQiantui(User user);
+					
+					//修改用户密码
+					Integer UpdateUserPassword(User user);
+	
+	
 }

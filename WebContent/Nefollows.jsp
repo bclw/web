@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>网络跟踪</title>
 <link rel="stylesheet" href="js/jquery-easyui-1.4.3/themes/icon.css">
 <link rel="stylesheet"
 	href="js/jquery-easyui-1.4.3/themes/default/easyui.css">

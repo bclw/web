@@ -15,6 +15,11 @@ input#rightcode {
 	letter-spacing: 2px;
 	font-weight: bolder;
 }
+
+
+body{
+  background: url("image/b.jpg");
+}
 </style>
 </head>
 <script>

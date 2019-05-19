@@ -189,11 +189,10 @@ $("#setModules_window").window("open");
 	//获取模块id
 	var modulesRow=$("#mymodules").datagrid("getSelected");
 	
-	alert(modulesRow.mId)
 	
 	if(modulesRow){
 		$.post("deleteRoleModules",{
-			moduleId:1,
+			moduleId:modulesRow.mId,
 		},function(res){
 			if(res>0){
 				$.messager.alert("提示","模块设置成功")

@@ -66,6 +66,24 @@ public class UserServiceImp implements UserService{
 	public Integer jiesuoUser(User user) {
 		return userMapper.jiesuoUser(user);
 	}
-	
+	public User select(Integer id) {
+		return userMapper.select(id);
+	}
+	@Override
+	public Integer updateMessage(User user) {
+		return userMapper.updateMessage(user);
+	}
+	@Override
+	public Integer updateQiandao(User user) {
+		return userMapper.updateQiandao(user);
+	}
+	@Override
+	public Integer updateQiantui(User user) {
+		return userMapper.updateQiantui(user);
+	}
+	@Override
+	public Integer UpdateUserPassword(User user) {
+		return userMapper.UpdateUserPassword(user);
+	}
 
 }
