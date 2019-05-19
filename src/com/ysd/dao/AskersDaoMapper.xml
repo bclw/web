@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysd.dao.AskersDaoMapper">
+	<select parameterType="fenye" resultType="int"
+		id="selectStudentCount">
+		SELECT COUNT(sId) FROM student
+
+		<where>
+
+			<if test="sName != null and sName!=''">and sName like "%" #{sName}"%" </if>
+
+			<if test="sPhone !=null and sPhone!=''">and sPhone =#{sPhone} </if>
+
+			<if test="sZiXunId!=null and sZiXunId!=''">and sZiXunId =#{sZiXunId} </if>
+
+			<if test="sIsPay!=null and sIsPay!=''">and sIsPay =#{sIsPay} </if>
+
+			<if test="sIsValid!=null and sIsValid!=''">and sIsValid =#{sIsValid} </if>
+
+			<if test="sIsHome!=null and sIsHome!=''">and sIsHome =#{sIsHome} </if>
+
+			<if test="sIsReturnVist!=null and sIsReturnVist!=''">and sIsReturnVist =#{sIsReturnVist} </if>
+			
+			<if test="sQQ!=null and sQQ!=''">and sQQ =#{sQQ} </if>
+
+			<if test="sCreateTime!=null and sCreateTime!=''">and sCreateTime =#{sCreateTime} </if>
+
+		</where>
+
+	</select>
+	<resultMap id="askers" type="Student">
+
+		<result property="askers.askerName" column="askerName" />
+
+		<result property="sId" column="sId" />
+
+		<result property="sName" column="sName" />
+
+		<result property="sAge" column="sAge" />
+
+		<result property="sSex" column="sSex" />
+
+		<result property="sPhone" column="sPhone" />
+
+		<result property="sStuState" column="sStuState" />
+
+		<result property="sState" column="sState" />
+
+		<result property="sMsgSource" column="sMsgSource" />
+
+		<result property="sSourceUrl" column="sSourceUrl" />
+
+		<result property="sSourceKeyWord" column="sSourceKeyWord" />
+
+		<result property="sAddress" column="sAddress" />
+
+		<result property="sNetPusherId" column="sNetPusherId" />
+
+		<result property="sStuConcern" column="sStuConcern" />
+
+		<result property="sQQ" column="sQQ" />
+
+		<result property="sWeiXin" column="sWeiXin" />
+
+		<result property="sContent" column="sContent" />
+
+		<result property="sCreateTime" column="sCreateTime" />
+
+		<result property="sLearnForward" column="sLearnForward" />
+
+		<result property="sIsValid" column="sIsValid" />
+
+		<result property="sRecord" column="sRecord" />
+
+		<result property="sIsReturnVist" column="sIsReturnVist" />
+
+		<result property="sFirstVisitTime" column="sFirstVisitTime" />
+
+		<result property="sIsHome" column="sIsHome" />
+
+		<result property="sHomeTime" column="sHomeTime" />
+
+		<result property="sLostValid" column="sLostValid" />
+
+		<result property="sIsPay" column="sIsPay" />
+
+		<result property="sPayTime" column="sPayTime" />
+
+		<result property="sMoney" column="sMoney" />
+
+		<result property="sIsReturnMoney" column="sIsReturnMoney" />
+
+		<result property="sReturnMoneyReason"
+			column="sReturnMoneyReason" />
+
+		<result property="sIsInClass" column="sIsInClass" />
+
+		<result property="sInClassTime" column="sInClassTime" />
+
+		<result property="sInClassContent" column="sInClassContent" />
+
+		<result property="sIsBaoBei" column="sIsBaoBei" />
+
+		<result property="sZiXunId" column="sZiXunId" />
+
+		<result property="sCreateUserId" column="sCreateUserId" />
+
+		<result property="sPreMoney" column="sPreMoney" />
+
+		<result property="sPreMoneyTime" column="sPreMoneyTime" />
+
+	</resultMap>
+
+
+	<select parameterType="fenye" id="selectStudent"
+		resultMap="askers">
+		SELECT
+		a.askerName,s.sId,s.sName,s.sAge,s.sSex,s.sPhone,s.sStuState,s.sState,s.sMsgSource,s.sSourceUrl,s.sSourceKeyWord,s.sAddress,s.sNetPusherId,s.sStuConcern,s.sQQ,s.sWeiXin,s.sContent,s.sCreateTime,s.sLearnForward,s.sIsValid,s.sRecord,s.sIsReturnVist,s.sFirstVisitTime,s.sIsHome,s.sHomeTime,s.sLostValid,s.sIsPay,s.sPayTime,s.sMoney,s.sIsReturnMoney,s.sReturnMoneyReason,s.sIsInClass,s.sInClassTime,s.sInClassContent,s.sIsBaoBei,s.sZiXunId,s.sCreateUserId,s.sPreMoney,s.sPreMoneyTime
+		FROM askers a,student s 	
+
+		<where>
+
+			<if test="sName != null and sName!=''">and sName like "%"#{sName}"%" </if>
+
+			<if test="sPhone !=null and sPhone!=''">and sPhone = #{sPhone} </if>
+
+			<if test="askerName!=null and askerName!=''">and a.askerName = #{askerName} </if>
+
+			<if test="sIsPay!=null and sIsPay!=''">and sIsPay = #{sIsPay} </if>
+
+			<if test="sIsValid!=null and sIsValid!=''">and sIsValid = #{sIsValid} </if>
+
+			<if test="sIsReturnVist!=null and sIsReturnVist!=''">and sIsReturnVist = #{sIsReturnVist} </if>
+
+			<if test="sQQ!=null and sQQ!=''">and sQQ = #{sQQ} </if>
+
+			<if test="sCreateTime!=null and sCreateTime!=''">and sCreateTime = #{sCreateTime} </if>
+			and a.askerId = s.sCreateUserId
+		</where>
+		limit #{page},#{pageSize}
+	</select>
+	<update id="updateStudent" parameterType="student">
+		update
+		student
+		<set>
+			<if test="sName !='' and sName != null">
+				sName =#{sName},
+			</if>
+			<if test="sLearnForward !='' and sLearnForward != null">
+				sLearnForward=#{sLearnForward},
+			</if>
+			<if test="sRecord !='' and sRecord != null">
+				sRecord=#{sRecord},
+			</if>
+			<if test="sPhone !='' and sPhone != null">
+				sPhone=#{sPhone},
+			</if>
+			<if test="sStuState !='' and sStuState != null">
+				sStuState=#{sStuState},
+			</if>
+			<if test="sIsValid !='' and sIsValid != null">
+				sIsValid=#{sIsValid},
+			</if>
+			<if test="sLostValid !='' and sLostValid != null">
+				sLostValid=#{sLostValid},
+			</if>
+			<if test="sIsReturnVist !='' and sIsReturnVist != null">
+				sIsReturnVist=#{sIsReturnVist},
+			</if>
+			<if test="sFirstVisitTime !='' and sFirstVisitTime != null">
+				sFirstVisitTime=#{sFirstVisitTime},
+			</if>
+			<if test="sIsHome !='' and sIsHome != null">
+				sIsHome=#{sIsHome},
+			</if>
+
+			<if test="sHomeTime !='' and sHomeTime != null">
+				sHomeTime=#{sHomeTime},
+			</if>
+			<if test="sIsPay !='' and sIsPay != null">
+				sIsPay=#{sIsPay},
+			</if>
+			<if test="sMoney !='' and sMoney != null">
+				sMoney=#{sMoney},
+			</if>
+			<if test="sIsReturnMoney !='' and sIsReturnMoney != null">
+				sIsReturnMoney=#{sIsReturnMoney},
+			</if>
+			<if test="sPayTime !='' and sPayTime != null">
+				sPayTime=#{sPayTime},
+			</if>
+			<if test="sReturnMoneyReason !='' and sReturnMoneyReason != null">
+				sReturnMoneyReason=#{sReturnMoneyReason},
+			</if>
+			<if test="sIsInClass !='' and sIsInClass != null">
+				sIsInClass=#{sIsInClass},
+			</if>
+			<if test="sInClassContent !='' and sInClassContent != null">
+				sInClassContent=#{sInClassContent},
+			</if>
+
+			<if test="sIsBaoBei !='' and sIsBaoBei != null">
+				sIsBaoBei=#{sIsBaoBei},
+			</if>
+			<if test="sZiXunId !='' and sZiXunId != null">
+				sZiXunId=#{sZiXunId},
+			</if>
+		</set>
+		<where>
+			sId=#{sId}
+		</where>
+	</update>
+	<!-- sName=#{sName}, sAge=#{sAge}, sSex=#{sSex}, sPhone=#{sPhone}, sStuState=#{sStuState}, 
+		sState=#{sState}, sMsgSource=#{sMsgSource}, sSourceUrl=#{sSourceUrl}, sSourceKeyWord=#{sSourceKeyWord}, 
+		sAddress=#{sAddress}, sNetPusherId=#{sNetPusherId}, sStuConcern=#{sStuConcern}, 
+		sQQ=#{sQQ}, sWeiXin=#{sWeiXin}, sContent=#{sContent}, sCreateTime=#{sCreateTime}, 
+		sLearnForward=#{sLearnForward}, sIsValid=#{sIsValid}, sRecord=#{sRecord}, 
+		sIsReturnVist=#{sIsReturnVist}, sFirstVisitTime=#{sFirstVisitTime}, sIsHome=#{sIsHome}, 
+		sHomeTime=#{sHomeTime}, sLostValid=#{sLostValid}, sIsPay=#{sIsPay}, sPayTime=#{sPayTime}, 
+		sMoney=#{sMoney}, sIsReturnMoney=#{sIsReturnMoney}, sReturnMoneyReason=#{sReturnMoneyReason}, 
+		sIsInClass=#{sIsInClass}, sInClassTime=#{sInClassTime}, sInClassContent=#{sInClassContent}, 
+		sIsBaoBei=#{sIsBaoBei}, sZiXunId=#{sZiXunId}, sCreateUserId=#{sCreateUserId}, 
+		sPreMoney=#{sPreMoney}, sPreMoneyTime=#{sPreMoneyTime}, -->
+
+<insert id="insertStudent" parameterType="student">
+ INSERT 
+ INTO
+  netfollows(nid,nStudentId,nStudentName,nFollowTime,nNextFollowTime,nContent,nUserId,nFollowType,sInClassTime,nFollowState) 
+ VALUES(#{nid},#{nStudentId},#{nStudentName},#{nFollowTime},#{nNextFollowTime},#{nContent},#{nUserId},#{nFollowType},#{sInClassTime},#{nFollowState},)
+</insert>
+</mapper>

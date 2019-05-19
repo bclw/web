@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysd.dao.NefollowsStudentMapper">
+	<resultMap type="Nefollows" id="nefollows">
+		<result property="student.sName" column="sName" />
+		<result property="nStudentName" column="nStudentName" />
+		<result property="nFollowTime" column="nFollowTime" />
+		<result property="nNextFollowTime" column="nNextFollowTime" />
+		<result property="nContent" column="nContent" />
+		<result property="nUserId" column="nUserId" />
+		<result property="nFollowType" column="nFollowType" />
+		<result property="nCreateTime" column="nCreateTime" />
+		<result property="nFollowState" column="nFollowState" />
+		<result property="user.loginName" column="loginName" />
+	</resultMap>
+	<insert id="insertNefollows" parameterType="nefollows">
+		INSERT
+		INTO
+		netfollows(nStudentId,nStudentName,nFollowTime,nNextFollowTime,nContent,nUserId,nFollowType,nCreateTime,nFollowState)
+		VALUES(#{nStudentId},#{nStudentName},#{nFollowTime},#{nNextFollowTime},#{nContent},#{nUserId},#{nFollowType},#{nCreateTime},#{nFollowState})
+	</insert>
+	<select id="selectAllNefollows" parameterType="fenye"
+		resultMap="nefollows">
+		SELECT n.*,u.loginName
+		FROM netfollows n,student s, `user` u
+		WHERE n.nStudentId=s.sId AND u.uId=n.nUserId and u.uId=3		
+			<!-- 11、nStudentName跟踪学生名称 12、nFollowTime跟踪时间 13、下次跟踪时间 nNextFollowTime 
+				14、跟踪方式 nFollowType 15、nFollowState 跟踪状态 -->
+			<if test="nStudentName != null and nStudentName!=''">and nStudentName like "%"#{nStudentName}"%" </if>
+
+			<if test="nFollowTime !=null and nFollowTime!=''">and nFollowTime = #{nFollowTime} </if>
+
+			<if test="nNextFollowTime !=null and nNextFollowTime!=''">and nNextFollowTime = #{nNextFollowTime} </if>
+
+			<if test="nFollowType!=null and nFollowType!=''">and nFollowType = #{nFollowType} </if>
+
+			<if test="nFollowState!=null and nFollowState!=''">and nFollowState = #{nFollowState} </if>
+			
+		
+		limit #{page},#{pageSize}
+	</select>
+	<select id="selectAllNefollowsCount"  parameterType="fenye"
+		resultType="int">
+			SELECT count(*)
+		FROM netfollows n,student s, `user` u
+		WHERE n.nStudentId=s.sId AND u.uId=n.nUserId and u.uId=3
+			<!-- 11、nStudentName跟踪学生名称 12、nFollowTime跟踪时间 13、下次跟踪时间 nNextFollowTime 
+				14、跟踪方式 nFollowType 15、nFollowState 跟踪状态 -->
+			<if test="nStudentName != null and nStudentName!=''">and nStudentName like "%"#{nStudentName}"%" </if>
+
+			<if test="nFollowTime !=null and nFollowTime!=''">and nFollowTime = #{nFollowTime} </if>
+
+			<if test="nNextFollowTime !=null and nNextFollowTime!=''">and nNextFollowTime = #{nNextFollowTime} </if>
+
+			<if test="nFollowType!=null and nFollowType!=''">and nFollowType = #{nFollowType} </if>
+
+			<if test="nFollowState!=null and nFollowState!=''">and nFollowState = #{nFollowState} </if>
+		   
+		
+	</select>
+	<update id="updateAllNefollows" parameterType="int">  
+	update 
+	netfollows
+		<set>
+			<if test="nStudentName !='' and nStudentName != null">
+				nStudentName =#{nStudentName},
+			</if>
+			<if test="nFollowTime !='' and nFollowTime != null">
+				nFollowTime =#{nFollowTime},
+			</if>
+			<if test="nNextFollowTime !='' and nNextFollowTime != null">
+				nNextFollowTime =#{nNextFollowTime},
+			</if>
+			<if test="nContent !='' and nContent != null">
+				nContent =#{nContent},
+			</if>
+			
+			<if test="nUserId !='' and nUserId != null">
+				nUserId =#{nUserId},
+			</if>
+			<if test="nFollowType !='' and nFollowType != null">
+				nFollowType =#{nFollowType},
+			</if>
+			<if test="nCreateTime !='' and nCreateTime != null">
+				nCreateTime =#{nCreateTime},
+			</if>
+			<if test="nFollowState !='' and nFollowState != null">
+				nFollowState =#{nFollowState}
+			</if>
+	     <where>
+			nId=#{nId}
+		</where>
+	  </set>
+	</update>
+	
+</mapper>

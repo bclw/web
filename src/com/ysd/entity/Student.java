@@ -1,4 +1,8 @@
 package com.ysd.entity;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class Student {
 private Integer sId;
 private String sName;
@@ -23,21 +27,23 @@ private String sRecord;
 private Integer sIsReturnVist;
 private String sFirstVisitTime;
 private Integer sIsHome;
-private Integer sHomeTime;
+private String sHomeTime;    //************************需要改成String
 private String sLostValid;
 private String sIsPay;
 private String sPayTime;
-private double sMoney;
+private String   sMoney;    //*************需要改成String
 private Integer sIsReturnMoney;
 private String sReturnMoneyReason;
 private Integer sIsInClass;
-private String sInClassTime;
+private Integer sInClassTime;//改为int类型
 private String sInClassContent;
 private Integer sIsBaoBei;
 private Integer sZiXunId;
 private Integer sCreateUserId;
-private double sPreMoney;
+private Double sPreMoney;
 private String sPreMoneyTime;
+//把咨询师维护到学生中
+private Askers askers;
 public Integer getsId() {
 	return sId;
 }
@@ -176,10 +182,10 @@ public Integer getsIsHome() {
 public void setsIsHome(Integer sIsHome) {
 	this.sIsHome = sIsHome;
 }
-public Integer getsHomeTime() {
+public String getsHomeTime() {
 	return sHomeTime;
 }
-public void setsHomeTime(Integer sHomeTime) {
+public void setsHomeTime(String sHomeTime) {
 	this.sHomeTime = sHomeTime;
 }
 public String getsLostValid() {
@@ -200,10 +206,10 @@ public String getsPayTime() {
 public void setsPayTime(String sPayTime) {
 	this.sPayTime = sPayTime;
 }
-public double getsMoney() {
+public String getsMoney() {
 	return sMoney;
 }
-public void setsMoney(double sMoney) {
+public void setsMoney(String sMoney) {
 	this.sMoney = sMoney;
 }
 public Integer getsIsReturnMoney() {
@@ -224,10 +230,10 @@ public Integer getsIsInClass() {
 public void setsIsInClass(Integer sIsInClass) {
 	this.sIsInClass = sIsInClass;
 }
-public String getsInClassTime() {
+public Integer getsInClassTime() {
 	return sInClassTime;
 }
-public void setsInClassTime(String sInClassTime) {
+public void setsInClassTime(Integer sInClassTime) {
 	this.sInClassTime = sInClassTime;
 }
 public String getsInClassContent() {
@@ -254,10 +260,10 @@ public Integer getsCreateUserId() {
 public void setsCreateUserId(Integer sCreateUserId) {
 	this.sCreateUserId = sCreateUserId;
 }
-public double getsPreMoney() {
+public Double getsPreMoney() {
 	return sPreMoney;
 }
-public void setsPreMoney(double sPreMoney) {
+public void setsPreMoney(Double sPreMoney) {
 	this.sPreMoney = sPreMoney;
 }
 public String getsPreMoneyTime() {
@@ -266,9 +272,79 @@ public String getsPreMoneyTime() {
 public void setsPreMoneyTime(String sPreMoneyTime) {
 	this.sPreMoneyTime = sPreMoneyTime;
 }
+public Askers getAskers() {
+	return askers;
+}
+public void setAskers(Askers askers) {
+	this.askers = askers;
+}
 
 
-
-
-
+public Student() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Student(Integer sId, String sName, Integer sAge, Integer sSex, String sPhone, String sStuState, String sState,
+		String sMsgSource, String sSourceUrl, String sSourceKeyWord, String sAddress, String sNetPusherId,
+		String sStuConcern, Integer sQQ, String sWeiXin, String sContent, String sCreateTime, String sLearnForward,
+		Integer sIsValid, String sRecord, Integer sIsReturnVist, String sFirstVisitTime, Integer sIsHome,
+		String sHomeTime, String sLostValid, String sIsPay, String sPayTime, String sMoney, Integer sIsReturnMoney,
+		String sReturnMoneyReason, Integer sIsInClass, Integer sInClassTime, String sInClassContent, Integer sIsBaoBei,
+		Integer sZiXunId, Integer sCreateUserId, Double sPreMoney, String sPreMoneyTime, Askers askers) {
+	super();
+	this.sId = sId;
+	this.sName = sName;
+	this.sAge = sAge;
+	this.sSex = sSex;
+	this.sPhone = sPhone;
+	this.sStuState = sStuState;
+	this.sState = sState;
+	this.sMsgSource = sMsgSource;
+	this.sSourceUrl = sSourceUrl;
+	this.sSourceKeyWord = sSourceKeyWord;
+	this.sAddress = sAddress;
+	this.sNetPusherId = sNetPusherId;
+	this.sStuConcern = sStuConcern;
+	this.sQQ = sQQ;
+	this.sWeiXin = sWeiXin;
+	this.sContent = sContent;
+	this.sCreateTime = sCreateTime;
+	this.sLearnForward = sLearnForward;
+	this.sIsValid = sIsValid;
+	this.sRecord = sRecord;
+	this.sIsReturnVist = sIsReturnVist;
+	this.sFirstVisitTime = sFirstVisitTime;
+	this.sIsHome = sIsHome;
+	this.sHomeTime = sHomeTime;
+	this.sLostValid = sLostValid;
+	this.sIsPay = sIsPay;
+	this.sPayTime = sPayTime;
+	this.sMoney = sMoney;
+	this.sIsReturnMoney = sIsReturnMoney;
+	this.sReturnMoneyReason = sReturnMoneyReason;
+	this.sIsInClass = sIsInClass;
+	this.sInClassTime = sInClassTime;
+	this.sInClassContent = sInClassContent;
+	this.sIsBaoBei = sIsBaoBei;
+	this.sZiXunId = sZiXunId;
+	this.sCreateUserId = sCreateUserId;
+	this.sPreMoney = sPreMoney;
+	this.sPreMoneyTime = sPreMoneyTime;
+	this.askers = askers;
+}
+@Override
+public String toString() {
+	return "Student [sId=" + sId + ", sName=" + sName + ", sAge=" + sAge + ", sSex=" + sSex + ", sPhone=" + sPhone
+			+ ", sStuState=" + sStuState + ", sState=" + sState + ", sMsgSource=" + sMsgSource + ", sSourceUrl="
+			+ sSourceUrl + ", sSourceKeyWord=" + sSourceKeyWord + ", sAddress=" + sAddress + ", sNetPusherId="
+			+ sNetPusherId + ", sStuConcern=" + sStuConcern + ", sQQ=" + sQQ + ", sWeiXin=" + sWeiXin + ", sContent="
+			+ sContent + ", sCreateTime=" + sCreateTime + ", sLearnForward=" + sLearnForward + ", sIsValid=" + sIsValid
+			+ ", sRecord=" + sRecord + ", sIsReturnVist=" + sIsReturnVist + ", sFirstVisitTime=" + sFirstVisitTime
+			+ ", sIsHome=" + sIsHome + ", sHomeTime=" + sHomeTime + ", sLostValid=" + sLostValid + ", sIsPay=" + sIsPay
+			+ ", sPayTime=" + sPayTime + ", sMoney=" + sMoney + ", sIsReturnMoney=" + sIsReturnMoney
+			+ ", sReturnMoneyReason=" + sReturnMoneyReason + ", sIsInClass=" + sIsInClass + ", sInClassTime="
+			+ sInClassTime + ", sInClassContent=" + sInClassContent + ", sIsBaoBei=" + sIsBaoBei + ", sZiXunId="
+			+ sZiXunId + ", sCreateUserId=" + sCreateUserId + ", sPreMoney=" + sPreMoney + ", sPreMoneyTime="
+			+ sPreMoneyTime + ", askers=" + askers + "]";
+}
 }
