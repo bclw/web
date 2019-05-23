@@ -61,10 +61,10 @@ function closeInfo(){
 }
 
 
-function delRoles(index){
+ function delRoles(index){
 	var data=$("#dg").datagrid("getData");
 	var row=data.rows[index];
-	$.messager.confirm("提示","确认删除么？",function(r){
+	$.messager.confirm('确认', '您想要删除:'+row.rName+'该角色吗？',function(r){
 		if(r){
 			$.post("deleteRoles",{
 				rId : row.rId
@@ -72,18 +72,28 @@ function delRoles(index){
 				if(res>0){
 					//删除成功
 					$("#dg").datagrid("reload");
-					$.messager.alert("提示","删除成功");
+					$.messager.alert("提示","删除成功"); 
+					/* $.messager.alert({
+						title:'提示信息',
+						msg:res.message
+					}); */
 					
 				}else{
 					//删除失败
-					$.messager.alert("提示","删除失败");
+					 $.messager.alert("提示","删除失败"); 
+					/* $.messager.alert({
+						title:'提示信息',
+						msg:res.message
+					}); */
 				}
 			},"json")
 			
 		}
 	})
 	
-}
+} 
+
+
 
 
 
@@ -133,10 +143,12 @@ function setRoleModules(index){
 	//
 	var modulesRow=$("#allmodules").datagrid("getSelected");
 	//获取所有的模块信息
-	
 	$("#allmodules").datagrid({
 		url:"selectModules",
 		method:'post',
+		queryParams:{
+			rId :row.rId
+		}
 	})
 	/* } */
 
@@ -285,8 +297,8 @@ $("#setModules_window").window("open");
 			<table>
 				<tr>
 					<td width="200px">
-						展示所有的模块
-						<table title="所有的模块" id="allmodules" class="easyui-datagrid" data-options="rownumbers:true,singleSelect:true,method:'post',fitColumns:true">
+						展示该角色没有的模块
+						<table title="未予的模块" id="allmodules" class="easyui-datagrid" data-options="rownumbers:true,singleSelect:true,method:'post',fitColumns:true">
 							<thead>
 								<tr>
 									<th data-options="field:'mId',width:280,hidden:true">模块ID</th>

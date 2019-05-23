@@ -47,7 +47,7 @@ function formatterSuoding(value,row,index){
 
 
 function formatterSuoDing(value,row,index){
-		return value == 0 ? "已锁定" : "未锁定";
+		return value == 1 ? "已锁定" : "未锁定";
 	
 }
 
@@ -66,7 +66,6 @@ function suoding(index){
 					$.messager.alert("提示","已锁定");
 					
 				}else{
-					//删除失败
 					$.messager.alert("提示","锁定失败");
 				}
 			},"json")
@@ -117,7 +116,6 @@ function resetPs(index){
 					$.messager.alert("提示","重置成功");
 					
 				}else{
-					//删除失败
 					$.messager.alert("提示","重置失败");
 				}
 			},"json")
@@ -239,6 +237,9 @@ function saveUpdate() {
 		$("#allrole").datagrid({
 			url:"selectRoles",
 			method:'post',
+			queryParams:{
+				id:row.uId
+			}
 		})
 	
 	//获取当前选中的的用户角色的信息
@@ -270,6 +271,7 @@ function saveUpdate() {
 			},function(res){
 				if(res>0){
 					$("#myrole").datagrid("reload");
+					$.messager.alert("提示","角色设置成功")
 				}else{
 					$.messager.alert("提示","角色设置失败")
 				}
@@ -331,8 +333,8 @@ function saveUpdate() {
 	        	
 	        		状态：<select id="lockd" name="lockd" class="easyui-combobox" >
 							<option value="">--请选择--</option>
-							<option value="1">未锁定</option>
-							<option value="0">已锁定</option>
+							<option value="1">已锁定</option>
+							<option value="0">未锁定</option>
 					</select> 
 	        	
 

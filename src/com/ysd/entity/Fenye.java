@@ -32,7 +32,7 @@ public class Fenye<T> {
 	private String sName;
 	private String sPhone;
 	private Integer sZiXunId;
-	private String sIsPay;
+	private Integer sIsPay;
 	private Integer sIsValid;
 	private Integer sIsReturnVist;
 	private Integer sQQ;
@@ -85,10 +85,11 @@ public class Fenye<T> {
 	public void setsZiXunId(Integer sZiXunId) {
 		this.sZiXunId = sZiXunId;
 	}
-	public String getsIsPay() {
+
+	public Integer getsIsPay() {
 		return sIsPay;
 	}
-	public void setsIsPay(String sIsPay) {
+	public void setsIsPay(Integer sIsPay) {
 		this.sIsPay = sIsPay;
 	}
 	public Integer getsIsValid() {

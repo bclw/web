@@ -22,6 +22,8 @@ public interface ModulesMapper {
 	
 	
 	
+	
+	
 	//显示所有模块
 	List<Modules> selectModules(); 
 	//添加模块
@@ -30,4 +32,7 @@ public interface ModulesMapper {
 	Integer updateModule(Modules modules);
 	//删除模块
 	Integer deleteModule(Integer mId);
+	
+	//查询该模块下是否有子模块
+	List<Modules> selectModus(Integer mId);
 }

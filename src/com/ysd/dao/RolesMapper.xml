@@ -33,6 +33,14 @@ select count(rId) from roles
 	    insert into roles(rName) values(#{rName})
 	</insert>
 	
+	<select id="selectRolesByRname" resultType="roles" parameterType="roles">
+		select * from roles where rName=#{rName}
+	</select>
+	
+	
+	
+	
+	
 	<update id="updateRoles" parameterType="roles">
 		update roles 
 		<set>
@@ -47,9 +55,10 @@ select count(rId) from roles
 	
 	
 	
-	<!-- 查询所有模块 -->
-	<select id="selectModules" resultType="modules">
-		SELECT * from modules
+	<!-- 查询角色没有的模块 -->
+	<select id="selectModules" resultType="modules" parameterType="int">
+		SELECT mId,mName FROM modules WHERE mId NOT in(
+		SELECT moduleId FROM rolemodules WHERE roleId=#{rId} )
 	</select>
 	<!-- 显示所有角色模块 -->
 	<select id="selectRoleModules" resultType="modules" parameterType="int">
@@ -64,5 +73,10 @@ select count(rId) from roles
 		delete from rolemodules where moduleId=#{moduleId}
 	</delete>
 
+<!-- 查询该角色下有几个用户引用 -->
+<select id="selectUserByRolesId" resultType="user" parameterType="int">
+		SELECT uId,loginName FROM `user` WHERE uId  in(
+		SELECT userId FROM userroles WHERE roleId=#{roleId} )
+	</select>
 
 </mapper>

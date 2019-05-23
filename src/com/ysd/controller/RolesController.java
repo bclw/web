@@ -1,6 +1,9 @@
 package com.ysd.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +15,10 @@ import com.ysd.entity.Fenye;
 import com.ysd.entity.Modules;
 import com.ysd.entity.Rolemodules;
 import com.ysd.entity.Roles;
+import com.ysd.entity.User;
 import com.ysd.entity.Userroles;
 import com.ysd.service.RolesService;
+import com.ysd.service.UserService;
 
 @Controller
 public class RolesController {
@@ -23,6 +28,8 @@ public class RolesController {
 	private RolesService rolesService;
 	@Autowired
 	private Fenye<Roles> fenye;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/aa", method=RequestMethod.POST)
 	@ResponseBody
@@ -41,26 +48,34 @@ public class RolesController {
 			return rolesService.updateRoles(roles);
 		}
 
-		// 删除
+		// 删除(1、判断该角色是否有用户引用，2、判断该角色下是否有模块)
 		@RequestMapping(value = "/deleteRoles", method = RequestMethod.POST)
 		@ResponseBody
 		public Integer deleteRoles(Integer rId) {
-			return rolesService.deleteRoles(rId);
+			List<Modules> selectRoleModules = rolesService.selectRoleModules(rId);
+			List<User> selectUserByRolesId = rolesService.selectUserByRolesId(rId);
+			if( selectRoleModules.size()==0  && selectUserByRolesId.size()==0){
+				Integer i = rolesService.deleteRoles(rId);
+				return i;
+			}else{
+			return -1;
+			}
 		}
 
 		// 添加用户
 		@RequestMapping(value = "/insertRoles", method = RequestMethod.POST)
 		@ResponseBody
 		public Integer insertRoles(Roles roles) {
+			
 			return rolesService.insertRoles(roles);
 		}
 		
 		
-		// 显示所有模块
+		// 显示该角色未拥有的模块
 		@RequestMapping(value = "/selectModules", method = RequestMethod.POST)
 		@ResponseBody
-		public Fenye<Modules> selectModules() {
-			List<Modules> selectModules = rolesService.selectModules();
+		public Fenye<Modules> selectModules(Integer rId) {
+			List<Modules> selectModules = rolesService.selectModules(rId);
 			Fenye<Modules> fenye = new Fenye<Modules>();
 			fenye.setRows(selectModules);
 			return fenye;
@@ -95,3 +110,4 @@ public class RolesController {
 		}
 		
 }
+

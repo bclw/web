@@ -17,7 +17,7 @@ public class AskersController {
 	@RequestMapping("Askers")
 	@ResponseBody
 	public Fenye<Student> showNefollows(Integer page, Integer rows,  String sName, String sPhone, String askerName,
-		String sIsPay, Integer sIsValid,Integer sIsHome, Integer sIsReturnVist, Integer sQQ, String sCreateTime) {
+		Integer sIsPay, Integer sIsValid,Integer sIsHome, Integer sIsReturnVist, Integer sQQ, String sCreateTime) {
 		fenye.setPage((page - 1) * rows);
 		fenye.setPageSize(rows);
 		fenye.setsName(sName);

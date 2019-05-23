@@ -60,8 +60,8 @@ public interface UserMapper {
 	 * 进行用户角色设置
 	 * @return
 	 */
-	//显示所有角色
-	List<Roles> selectRoles(); 
+	//显示用户没有角色
+	List<Roles> selectRoles(Integer id); 
 	//显示所有用户角色
 	List<Roles> selectUserRoles(Integer id);
 	//给用户添加角色

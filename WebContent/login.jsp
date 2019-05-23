@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>欢迎页面</title>
 <script src="js/global.js"></script>
+
 <style type="text/css">
 input#rightcode {
 	font-family: Arial;

@@ -13,14 +13,17 @@
 <!--  <script type="text/javascript" src="js/global.js"></script>  -->
  <script type="text/javascript">
  
+ $(function() {
+		init();
+	});
 
-
-	 $(function() {
+	 function init() {
 			$('#treemenu').tree({
 				url : 'getModules',
 				method : "POST",
 				animate : true,
 				lines:true,
+				checkbox :true,
 				onContextMenu:function(e,node){
 					e.preventDefault();
 					//查找节点
@@ -32,8 +35,8 @@
 					}) */
 				}
 			})
-	 })
-	 
+	 }
+	
 	 
 	 //点击新增按钮
         function addModule(){
@@ -64,6 +67,7 @@
              }, 
              function(res){
                  if(res>0){
+                	 init();
                      alert("新增成功");
                      $("#insertWindow").window("close");
                      /* $("#mm").datagrid("reload"); */
@@ -217,14 +221,12 @@
 			<table>
 				 <tr>
 					<td>
-						<label for="name">编号名称:</label> 
+						<label for="name" hidden="hidden">编号名称:</label> 
 					</td>
 					<td>
 						<div id="mId1"></div>
-						<!-- <input class="easyui-validatebox" type="text" id="mId1" name="mId1" /> -->
 					</td>
 				</tr> 
-			
 				
 				<tr>
 					<td>

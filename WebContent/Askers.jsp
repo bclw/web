@@ -383,11 +383,13 @@
 				data-options="required:true" /> <label for="name">是否缴费:</label> <select
 				id="sIsPay" class="easyui-combobox" name="dept"
 				style="width: 200px;">
+				<option value="">--请选择--</option>
 				<option value="1">已缴费</option>
 				<option value="0">未缴费</option>
 
 			</select> </br> <label for="name">是否有效:</label> <select id="sIsValid1"
 				class="easyui-combobox" name="dept" style="width: 200px;">
+				<option value="">--请选择--</option>
 				<option value="1">有效</option>
 				<option value="0">无效</option>
 			</select> <label for="name">QQ:</label> <input class="easyui-validatebox"
@@ -592,6 +594,7 @@
 					<td>
 					<select id="sIsPay1" name="sIsPay" class="easyui-combobox"
 						name="dept" style="width: 200px;">
+							<option value="">--请选择--</option>
 							<option value="1">已缴费</option>
 							<option value="0">未缴费</option>
 					</select>

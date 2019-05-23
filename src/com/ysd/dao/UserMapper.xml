@@ -69,11 +69,11 @@ update user set loginName='admin',password='ysd123' where uId = #{uId}
 
 <!--  锁定用户 -->
 <update id="suodingUser" parameterType="user">
-	update user set isLockout=0  where uId = #{uId} and isLockout=1
+	update user set isLockout=1  where uId = #{uId} and isLockout=0
 </update>
 <!--  解锁用户 -->
 <update id="jiesuoUser" parameterType="user">
-	update user set isLockout=1  where uId = #{uId} and isLockout=0
+	update user set isLockout=0  where uId = #{uId} and isLockout=1
 </update>
 
 
@@ -103,7 +103,8 @@ update user set loginName='admin',password='ysd123' where uId = #{uId}
 	</delete>
 	
 	<insert id="insertUser" parameterType="user">
-	    insert into User(loginName,password,eMail,mTel) values(#{loginName},#{password},#{eMail},#{mTel})
+	    insert into User(loginName,password,eMail,mTel
+	    ,uExt) values(#{loginName},#{password},#{eMail},#{mTel},'未签到')
 	</insert>
 	
 	<update id="updateUser" parameterType="user">
@@ -126,9 +127,10 @@ update user set loginName='admin',password='ysd123' where uId = #{uId}
 	
 	
 	
-	<!-- 查询所有角色名 -->
-	<select id="selectRoles" resultType="roles">
-		SELECT rId,rName from roles
+	<!-- 查询该用户没有的角色名 -->
+	<select id="selectRoles" resultType="roles" parameterType="int">
+		SELECT rId,rName FROM roles WHERE rId  not IN (
+		SELECT roleId FROM userroles WHERE userId=#{id} )
 	</select>
 	<!-- 显示所有用户角色 -->
 	<select id="selectUserRoles" resultType="roles" parameterType="int">
@@ -140,12 +142,12 @@ update user set loginName='admin',password='ysd123' where uId = #{uId}
 		insert into userroles(userId,roleId) values(#{userId},#{roleId})
 	</insert>
 	
+	
+	
 	<delete id="deleteUserRoles" parameterType="int">
 		delete from userroles where roleId=#{roleId}
 	</delete>
-	
-	
-	
+
 	
 	<!-- 根据rolesId查userid -->
 	<select id="selectUserRolesByRolesId" parameterType="int" resultType="Userroles">

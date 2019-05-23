@@ -3,6 +3,7 @@ package com.ysd.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ysd.entity.Fenye;
+import com.ysd.entity.Modules;
 import com.ysd.entity.Roles;
 import com.ysd.entity.User;
 import com.ysd.entity.Userroles;
+import com.ysd.service.ModulesService;
 import com.ysd.service.UserService;
 
 @Controller
@@ -30,6 +33,8 @@ public class LoginController {
 	private UserService userService;
 	@Autowired
 	private Fenye<User> fenye;
+	@Autowired
+	private ModulesService modulesService;
 	
 	
 	@RequestMapping(value = "/ulogin", method = RequestMethod.POST)
@@ -170,8 +175,8 @@ public class LoginController {
 		// 显示所有角色
 		@RequestMapping(value = "/selectRoles", method = RequestMethod.POST)
 		@ResponseBody
-		public Fenye<Roles> selectRoles() {
-			 List<Roles> selectRoles = userService.selectRoles();
+		public Fenye<Roles> selectRoles(Integer id) {
+			 List<Roles> selectRoles = userService.selectRoles(id);
 			 Fenye<Roles> fenye = new Fenye<Roles>();
 			 fenye.setRows(selectRoles);
 			 
@@ -299,6 +304,7 @@ public class LoginController {
 	    	}
 	    	
 	    }
-
+	    
+	
 
 }

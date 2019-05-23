@@ -45,8 +45,8 @@ public class UserServiceImp implements UserService{
 	public Integer updateUser(User user) {
 		return userMapper.updateUser(user);
 	}
-	public List<Roles> selectRoles() {
-		return userMapper.selectRoles();
+	public List<Roles> selectRoles(Integer id) {
+		return userMapper.selectRoles(id);
 	}
 	public List<Roles> selectUserRoles(Integer id) {
 		return userMapper.selectUserRoles(id);
@@ -69,11 +69,9 @@ public class UserServiceImp implements UserService{
 	public User select(Integer id) {
 		return userMapper.select(id);
 	}
-	@Override
 	public Integer updateMessage(User user) {
 		return userMapper.updateMessage(user);
 	}
-	@Override
 	public Integer updateQiandao(User user) {
 		return userMapper.updateQiandao(user);
 	}
@@ -85,5 +83,9 @@ public class UserServiceImp implements UserService{
 	public Integer UpdateUserPassword(User user) {
 		return userMapper.UpdateUserPassword(user);
 	}
+	
+	
+	
+	
 
 }

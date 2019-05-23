@@ -94,7 +94,15 @@ public class ModulesServiceImp implements ModulesService{
 
 
 	public Integer deleteModule(Integer mId) {
-		return modulesMapper.deleteModule(mId);
+		List<Modules> selectModus = modulesMapper.selectModus(mId);
+		if(selectModus.size()==0){
+			return modulesMapper.deleteModule(mId);
+		}else{
+			return 0;
+		}
+		
+		
+		
 	}
 	
 

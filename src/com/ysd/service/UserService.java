@@ -31,8 +31,8 @@ public interface UserService {
 	
 
 	
-	//查看所有角色
-	List<Roles> selectRoles();
+	//查看该用户没有的角色
+	List<Roles> selectRoles(Integer id);
 	//显示所有用户角色
 	List<Roles> selectUserRoles(Integer id);
 	

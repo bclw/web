@@ -2,11 +2,15 @@ package com.ysd.service;
 
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.ysd.entity.Fenye;
 import com.ysd.entity.Modules;
 import com.ysd.entity.Rolemodules;
 import com.ysd.entity.Roles;
+import com.ysd.entity.User;
 import com.ysd.entity.Userroles;
 public interface RolesService {
 		//查询所有角色
@@ -18,9 +22,13 @@ public interface RolesService {
 		//修改角色
 		Integer updateRoles(Roles roles);
 		
+		//查询该角色是否有用户引用
+		List<User> selectUserByRolesId(Integer rId);
 		
-		//显示所有模块
-		List<Modules> selectModules(); 
+		
+		
+		//显示角色没有的模块
+		List<Modules> selectModules(Integer rId); 
 		//显示所有角色模块
 		List<Modules> selectRoleModules(Integer rId);
 		

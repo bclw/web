@@ -31,6 +31,12 @@ SELECT * FROM modules WHERE mParentId=#{id}
 <delete id="deleteModule" parameterType="int">
 	delete from modules where mId=#{mId}
 </delete>
+<!-- //查询该模块下是否有子模块 -->
+<select id="selectModus" parameterType="int" resultType="Modules">
+select * from Modules where mParentId=#{mId}
+</select>
+
+
 
 	
 </mapper>

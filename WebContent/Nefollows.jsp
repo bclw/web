@@ -157,8 +157,6 @@
 			</tr>
 		</thead>
 	</table>
-	<!-- 看看 -->
-	<div class="easyui-window" id="lookwindow" >
 	
 	
 	</div>
